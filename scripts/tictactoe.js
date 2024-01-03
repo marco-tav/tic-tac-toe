@@ -1,4 +1,4 @@
-function makeGameBoard() {
+const gameBoard = (function makeGameBoard() {
   const board = [];
 
   for(let i=0; i < 3; i++) {
@@ -9,54 +9,76 @@ function makeGameBoard() {
   }
 
   function placeMarker(row, col, playerMarker) {
-    board[row][col].setMarker(playerMarker);
+    if(board[row][col].wasChanged()) {
+      console.log("You can't overwrite another player's marker");
+    } else {
+      board[row][col].changeValue(playerMarker);
+    }
   }
 
   function returnMarker(row, col) {
-    return board[row][col].getMarker();
+    return board[row][col].getValue();
   }
 
   function printBoard() {
     for(let i=0; i < 3; i++){
       let row = "";
       for(let j=0; j < 3; j++) {
-        row += " " + board[i][j].getMarker();
+        row += " " + board[i][j].getValue();
       }
       console.log(row);
     }
   }
 
-  return {placeMarker, returnMarker, printBoard}
-}
+  function getBoard() {
+    return board;
+  }
+
+  return {placeMarker, returnMarker, printBoard, getBoard}
+})();
+
 
 function makeCell() {
-  let marker = "*";
+  let value = "*";
+  let markerPlaced = false;
 
-  function setMarker(playerMarker) {
-    marker = playerMarker;
+  function changeValue(playerMarker) {
+    value = playerMarker;
+    updateMarkerPlaced();
   }
 
-  function getMarker() {
-    return marker;
+  function updateMarkerPlaced() {
+    markerPlaced = true;
   }
 
-  return {setMarker, getMarker};
+  function getValue() {
+    return value;
+  }
+
+  function wasChanged() {
+    return markerPlaced;
+  }
+
+  return {changeValue, getValue, wasChanged};
 }
+
 
 function makePlayer(name, marker) {
   const playerName = name;
   const playerMarker = marker;
 
-  const getName = function() {
+  const getPlayerName = function() {
     return playerName;
   }
 
-  const getMarker = function() {
+  const getPlayerMarker = function() {
     return playerMarker;
   }
 
-  return {getName, getMarker}
+  return(getPlayerName, getPlayerMarker)
 }
 
 
+const game = (function gameController(board) {
 
+})(gameBoard);
