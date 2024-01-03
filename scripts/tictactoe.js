@@ -30,11 +30,25 @@ const gameBoard = (function makeGameBoard() {
     }
   }
 
-  function getBoard() {
-    return board;
+  function getRowString(row) {
+    let rowString = "";
+    for(let i = 0; i < 3; i++) {
+      rowString += board[row][i].getValue();
+    }
+
+    return rowString;
   }
 
-  return {placeMarker, returnMarker, printBoard, getBoard}
+  function getColString(col) {
+    let colString = "";
+    for(let i=0; i < 3; i++) {
+      colString += board[i][col].getValue();
+    }
+
+    return colString;
+  }
+
+  return {placeMarker, returnMarker, printBoard, getRowString, getColString}
 })();
 
 
@@ -78,7 +92,3 @@ function makePlayer(name, marker) {
   return(getPlayerName, getPlayerMarker)
 }
 
-
-const game = (function gameController(board) {
-
-})(gameBoard);
