@@ -58,10 +58,6 @@ function makeCell() {
 
   function changeValue(playerMarker) {
     value = playerMarker;
-    updateMarkerPlaced();
-  }
-
-  function updateMarkerPlaced() {
     markerPlaced = true;
   }
 
