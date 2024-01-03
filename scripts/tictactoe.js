@@ -43,5 +43,20 @@ function makeCell() {
   return {setMarker, getMarker};
 }
 
+function makePlayer(name, marker) {
+  const playerName = name;
+  const playerMarker = marker;
+
+  const getName = function() {
+    return playerName;
+  }
+
+  const getMarker = function() {
+    return playerMarker;
+  }
+
+  return {getName, getMarker}
+}
+
 
 
