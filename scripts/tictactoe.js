@@ -1,4 +1,4 @@
-const gameBoard = function makeGameBoard() {
+function makeGameBoard() {
   const board = [];
 
   for(let i=0; i < 3; i++) {
@@ -96,6 +96,6 @@ function makePlayer(name, marker) {
     return playerMarker;
   }
 
-  return(getPlayerName, getPlayerMarker)
+  return {getPlayerName, getPlayerMarker}
 }
 
