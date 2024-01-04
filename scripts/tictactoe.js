@@ -20,16 +20,6 @@ const gameBoard = (function makeGameBoard() {
     return board[row][col].getValue();
   }
 
-  function printBoard() {
-    for(let i=0; i < 3; i++){
-      let row = "";
-      for(let j=0; j < 3; j++) {
-        row += " " + board[i][j].getValue();
-      }
-      console.log(row);
-    }
-  }
-
   function getRowString(row) {
     let rowString = "";
     for(let i = 0; i < 3; i++) {
@@ -46,6 +36,16 @@ const gameBoard = (function makeGameBoard() {
     }
 
     return colString;
+  }
+
+  function printBoard() {
+    for(let i=0; i < 3; i++){
+      let row = "";
+      for(let j=0; j < 3; j++) {
+        row += " " + board[i][j].getValue();
+      }
+      console.log(row);
+    }
   }
 
   return {placeMarker, returnMarker, printBoard, getRowString, getColString}
