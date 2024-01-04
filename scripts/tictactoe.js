@@ -1,4 +1,4 @@
-const gameBoard = (function makeGameBoard() {
+const gameBoard = function makeGameBoard() {
   const board = [];
 
   for(let i=0; i < 3; i++) {
@@ -60,7 +60,7 @@ const gameBoard = (function makeGameBoard() {
   }
 
   return {placeMarker, printBoard, getRowString, getColString, getDiagonalsArr}
-})();
+}
 
 
 function makeCell() {
