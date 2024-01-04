@@ -16,10 +16,6 @@ const gameBoard = (function makeGameBoard() {
     }
   }
 
-  function returnMarker(row, col) {
-    return board[row][col].getValue();
-  }
-
   function getRowString(row) {
     let rowString = "";
     for(let i = 0; i < 3; i++) {
@@ -38,6 +34,21 @@ const gameBoard = (function makeGameBoard() {
     return colString;
   }
 
+  function getDiagonalsArr() {
+    let mainDiagonal = "";
+    let secondaryDiagonal = "";
+
+    for (let i = 0; i < 3; i++) {
+      mainDiagonal += board[i][i].getValue();
+    }
+
+    for (let j = 0; j < 3; j++) {
+      secondaryDiagonal += board[2-j][j].getValue();
+    }
+
+    return [mainDiagonal, secondaryDiagonal];
+  }
+
   function printBoard() {
     for(let i=0; i < 3; i++){
       let row = "";
@@ -48,7 +59,7 @@ const gameBoard = (function makeGameBoard() {
     }
   }
 
-  return {placeMarker, returnMarker, printBoard, getRowString, getColString}
+  return {placeMarker, printBoard, getRowString, getColString, getDiagonalsArr}
 })();
 
 
