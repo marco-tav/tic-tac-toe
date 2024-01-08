@@ -100,11 +100,46 @@ function makePlayer(name, marker) {
   return {getPlayerName, getPlayerMarker}
 }
 
+
 const game = (function(player1Name = "Player 1", player2Name = "Player 2") {
   const gameBoard = makeGameBoard();
+  
+  const status = (function() {
+    let n = 1; // round number
+    let gameOngoing = true;
+    let gameTied = false;
+    let winner;
+
+    const increaseN = () => n++;
+    const getN = () => n;
+
+    function updateOngoing() {
+      gameOngoing = false;
+    }
+
+    function getOngoing() {
+      return gameOngoing;
+    }
+
+    function updateTiedStatus() {
+      gameTied = true;
+    }
+
+    function getTiedStatus() {
+      return gameTied;
+    }
+
+    function setWinner(playerName) {
+      winner = playerName;
+    }
+
+    const getWinner = () => winner;
+
+    return {increaseN, getN, updateOngoing, getOngoing, updateTiedStatus, getTiedStatus, setWinner, getWinner}
+  })();
 
   const player1 = makePlayer(player1Name, "X");
-  const player2 = makePlayer(player2Name, "0");
+  const player2 = makePlayer(player2Name, "O");
 
   const playerArr = [player1, player2];
 
@@ -115,10 +150,39 @@ const game = (function(player1Name = "Player 1", player2Name = "Player 2") {
   }
 
   function switchActivePlayer() {
-    this.activePlayer = this.activePlayer.getPlayerName() === "Player 1" ? this.activePlayer = playerArr[1] : this.activePlayer = playerArr[0];
+    activePlayer = activePlayer.getPlayerName() === "Player 1" ? activePlayer = playerArr[1] : activePlayer = playerArr[0];
+  }
+
+  function getCoordinates() {
+    let row = prompt("Enter the row: ");
+    let col = prompt("Enter the column: ");
+  
+    return [row, col]
   }
 
   let activePlayer = selectRandomPlayer();
 
-  return {gameBoard, playerArr, activePlayer, switchActivePlayer};
+  console.log("GAME STARTS");
+
+  while(status.getOngoing() && status.getN()<10) {
+    console.log(`${activePlayer.getPlayerName()}'s turn`);
+
+    const [x, y] = getCoordinates();
+
+    gameBoard.placeMarker(x, y, activePlayer.getPlayerMarker());
+    gameBoard.printBoard();
+
+    if (roundNumber > 4) { // Here we check for a win
+      let row = gameBoard.getRowString();
+
+      let col = gameBoard.getColString();
+
+      let [mainDiag, secondaryDiag] = gameBoard.getDiagonalsArr();
+    }
+
+    roundNumber++;
+    switchActivePlayer();
+  }
+
+  return {gameBoard, playerArr, activePlayer};
 })();
