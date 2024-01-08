@@ -51,12 +51,13 @@ function makeGameBoard() {
 
   function printBoard() {
     for(let i=0; i < 3; i++){
-      let row = "";
+      let row = `Row ${i}: `;
       for(let j=0; j < 3; j++) {
         row += " " + board[i][j].getValue();
       }
       console.log(row);
     }
+    console.log(" ");
   }
 
   return {placeMarker, printBoard, getRowString, getColString, getDiagonalsArr}
@@ -99,3 +100,25 @@ function makePlayer(name, marker) {
   return {getPlayerName, getPlayerMarker}
 }
 
+const game = (function(player1Name = "Player 1", player2Name = "Player 2") {
+  const gameBoard = makeGameBoard();
+
+  const player1 = makePlayer(player1Name, "X");
+  const player2 = makePlayer(player2Name, "0");
+
+  const playerArr = [player1, player2];
+
+  function selectRandomPlayer() {
+    let random = Math.floor(Math.random()*2);
+
+    return playerArr[random];
+  }
+
+  function switchActivePlayer() {
+    this.activePlayer = this.activePlayer.getPlayerName() === "Player 1" ? this.activePlayer = playerArr[1] : this.activePlayer = playerArr[0];
+  }
+
+  let activePlayer = selectRandomPlayer();
+
+  return {gameBoard, playerArr, activePlayer, switchActivePlayer};
+})();
