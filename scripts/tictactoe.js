@@ -160,13 +160,14 @@ const game = (function(player1Name = "Player 1", player2Name = "Player 2") {
     return [row, col]
   }
 
-  function checkWin(rowStr, colStr, diagArr, marker) {
+  function checkWin(rowStr, colStr, mainDiagStr, secDiagStr, marker) {
     let win = false;
+
   
     let rowWin = rowStr === `${marker}${marker}${marker}`;
     let colWin = colStr === `${marker}${marker}${marker}`;
-    let mainDiagWin = diagArr[0] === `${marker}${marker}${marker}`;
-    let secondaryDiagWin = diagArr[1] === `${marker}${marker}${marker}`;
+    let mainDiagWin = mainDiagStr === `${marker}${marker}${marker}`;
+    let secondaryDiagWin = secDiagStr === `${marker}${marker}${marker}`;
   
     if(rowWin || colWin || mainDiagWin || secondaryDiagWin) {
       win = true;
@@ -189,14 +190,27 @@ const game = (function(player1Name = "Player 1", player2Name = "Player 2") {
 
     if (status.getN() > 4) { // Here we check for a win
       let row = gameBoard.getRowString(x);
-
       let col = gameBoard.getColString(y);
-
       let [mainDiag, secondaryDiag] = gameBoard.getDiagonalsArr();
+      let win = checkWin(row, col, mainDiag, secondaryDiag, activePlayer.getPlayerMarker());
+
+      if(win) {
+        status.updateOngoing();
+        status.setWinner(activePlayer.getPlayerName());
+      } else if (!win && status.getN() === 9) {
+        status.updateOngoing();
+        status.updateTiedStatus();
+      }
     }
 
     status.increaseN();
     switchActivePlayer();
+  }
+
+  if(status.getTiedStatus()) {
+    console.log("It's a tie!");
+  } else {
+    console.log(`The winner is ${status.getWinner()}`);
   }
 
   return {gameBoard, playerArr, activePlayer};
