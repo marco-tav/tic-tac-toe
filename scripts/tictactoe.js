@@ -160,6 +160,21 @@ const game = (function(player1Name = "Player 1", player2Name = "Player 2") {
     return [row, col]
   }
 
+  function checkWin(rowStr, colStr, diagArr, marker) {
+    let win = false;
+  
+    let rowWin = rowStr === `${marker}${marker}${marker}`;
+    let colWin = colStr === `${marker}${marker}${marker}`;
+    let mainDiagWin = diagArr[0] === `${marker}${marker}${marker}`;
+    let secondaryDiagWin = diagArr[1] === `${marker}${marker}${marker}`;
+  
+    if(rowWin || colWin || mainDiagWin || secondaryDiagWin) {
+      win = true;
+    }
+  
+    return win;
+  }
+
   let activePlayer = selectRandomPlayer();
 
   console.log("GAME STARTS");
@@ -172,15 +187,15 @@ const game = (function(player1Name = "Player 1", player2Name = "Player 2") {
     gameBoard.placeMarker(x, y, activePlayer.getPlayerMarker());
     gameBoard.printBoard();
 
-    if (roundNumber > 4) { // Here we check for a win
-      let row = gameBoard.getRowString();
+    if (status.getN() > 4) { // Here we check for a win
+      let row = gameBoard.getRowString(x);
 
-      let col = gameBoard.getColString();
+      let col = gameBoard.getColString(y);
 
       let [mainDiag, secondaryDiag] = gameBoard.getDiagonalsArr();
     }
 
-    roundNumber++;
+    status.increaseN();
     switchActivePlayer();
   }
 
