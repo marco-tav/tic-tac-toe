@@ -216,4 +216,4 @@ const game = (function(player1Name = "Player 1", player2Name = "Player 2") {
   }
 
   return {gameBoard, playerArr, getActivePlayer};
-})();
+});

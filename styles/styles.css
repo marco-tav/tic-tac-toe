@@ -15,6 +15,26 @@ body {
 
 .title-div {
   background-color: rgb(0, 25, 94);
+  display: grid;
+  grid-template-rows: repeat(3, 1fr);
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  padding: 50px;
+}
+
+.title-div > p {
+  font-size: 8rem;
+  margin: 0;
+  color: rgb(255, 145, 0);
+}
+
+.title-div > p:first-child {
+  color: rgb(250, 195, 42);
+}
+
+.title-div > p:last-child {
+  color: rgb(255, 72, 0);
 }
 
 .form-div {
