@@ -143,7 +143,7 @@ const game = (function(player1Name = "Player 1", player2Name = "Player 2") {
 
   const playerArr = [player1, player2];
 
-  function selectRandomPlayer() {
+  function selectRandomPlayer(arr) {
     let random = Math.floor(Math.random()*2);
 
     return playerArr[random];
@@ -176,7 +176,9 @@ const game = (function(player1Name = "Player 1", player2Name = "Player 2") {
     return win;
   }
 
-  let activePlayer = selectRandomPlayer();
+  let activePlayer = selectRandomPlayer(playerArr);
+
+  const getActivePlayer = () => activePlayer;
 
   console.log("GAME STARTS");
 
@@ -213,5 +215,5 @@ const game = (function(player1Name = "Player 1", player2Name = "Player 2") {
     console.log(`The winner is ${status.getWinner()}`);
   }
 
-  return {gameBoard, playerArr, activePlayer};
+  return {gameBoard, playerArr, getActivePlayer};
 })();
