@@ -1,3 +1,19 @@
+@font-face {
+  font-family: 'frauncesblack_italic';
+  src: url('../resources/fonts/Fraunces-Italic-VariableFont_SOFT\,WONK\,opsz\,wght.ttf') format('truetype-variations');
+  font-weight: normal;
+  font-style: normal;
+
+}
+
+@font-face {
+  font-family: 'frauncesblack';
+  src: url('../resources/fonts/Fraunces-VariableFont_SOFT\,WONK\,opsz\,wght.ttf') format('truetype-variations');
+  font-weight: 100 1000;
+  font-style: normal;
+
+}
+
 html {
   box-sizing: border-box;
 }
@@ -10,7 +26,7 @@ body {
   width: 100vw;
   height: 100vh;
   display: grid;
-  grid-template-columns: 1fr 1fr 2fr;
+  grid-template-columns: 0.8fr 1fr 2fr;
 }
 
 .title-div {
@@ -19,12 +35,15 @@ body {
   grid-template-rows: repeat(3, 1fr);
   align-items: center;
   justify-content: center;
-  font-weight: bold;
   padding: 50px;
+  font-family: 'frauncesblack_italic';
+  font-variation-settings: "wght" 700, "SOFT" 100;
+  border-bottom-right-radius: 20px;
+  border-top-right-radius: 20px;
 }
 
 .title-div > p {
-  font-size: 8rem;
+  font-size: 10rem;
   margin: 0;
   color: rgb(255, 145, 0);
 }
