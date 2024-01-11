@@ -25,6 +25,9 @@ body {
   height: 100vh;
   display: grid;
   grid-template-columns: 0.8fr 1fr 2fr;
+  gap: 10px;
+  background-color: rgb(54, 54, 54);
+  padding: 10px;
 }
 
 .title-div {
@@ -36,8 +39,7 @@ body {
   padding: 50px;
   font-family: 'fraunces_title';
   font-variation-settings: "wght" 700, "SOFT" 70;
-  border-bottom-right-radius: 20px;
-  border-top-right-radius: 20px;
+  border-radius: 20px;
 }
 
 .title-div > p {
@@ -55,11 +57,11 @@ body {
 }
 
 .form-div {
-  border: 2px solid orange;
   border-radius: 20px;
+  background-color: rgb(72, 105, 196);
 }
 
 .game-div {
-  border: 2px solid orange;
   border-radius: 20px;
+  background-color: lightblue;
 }
