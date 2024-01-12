@@ -1,11 +1,4 @@
 @font-face {
-  font-family: 'fraunces_title';
-  src: url('../resources/fonts/fraunces_italic_title.woff2') format('woff2');
-  font-weight: normal;
-  font-style: normal;
-}
-
-@font-face {
   font-family: 'frauncesblack';
   src: url('../resources/fonts/fraunces_variable.woff2') format('woff2-variations');
   font-weight: 100 900;
@@ -35,14 +28,16 @@ body > div {
   border-radius: 20px;
 }
 
+/* ------------------- TITLE DIV STYLES ------------ */
+
 .title-div {
   background-color: rgb(0, 25, 94);
   display: grid;
   grid-template-rows: repeat(3, 1fr);
   align-items: center;
   justify-content: center;
-  font-family: 'fraunces_title';
-  font-variation-settings: "wght" 700, "SOFT" 70;
+  font-family: 'frauncesblack';
+  font-variation-settings: "wght" 700, "SOFT" 40, "opsz" 144;
 }
 
 .title-div > p {
@@ -61,9 +56,87 @@ body > div {
   align-self: flex-end;
 }
 
+/* ------------------- FORM DIV STYLES ---------------- */
+
 .form-div {
   background-color: rgb(95, 125, 209);
+  display: grid;
+  grid-template-rows: 1fr 1.5fr 1fr;
+  padding: 30px;
 }
+
+.form-div h2 {
+  padding: 20px;
+  font-family: 'frauncesblack';
+  font-size: 3.2rem;
+  font-variation-settings: 'wght' 400, 'WONK' 1, 'SOFT' 100, 'opsz' 80;
+}
+
+.form-div > form {
+  background-color: rgb(109, 143, 235);
+  display: grid;
+  grid-template-rows: repeat(2, 1fr);
+  padding: 20px;
+  border-radius: 20px;
+}
+
+.form-div > form > div {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  justify-content: center;
+}
+
+form label {
+  font-family: 'frauncesblack';
+  font-size: 1.6rem;
+  font-variation-settings: 'wght' 500, 'SOFT' 100, 'WONK' 1, 'opsz' 80;
+}
+
+form input {
+  background-color: rgb(236, 236, 236);
+  border: none;
+  border-radius: 15px;
+  padding-left: 12px;
+  height: 35px;
+  font-family: 'frauncesblack';
+  font-size: 1.2rem;
+  font-variation-settings: 'wght' 500, 'SOFT' 100, 'WONK' 1, 'opsz' 80;
+  color: rgb(44, 44, 44);
+}
+
+.form-div > div {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  padding: 50px 0px;
+}
+
+.form-div button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 150px;
+  height: 40px;
+  border-radius: 18px;
+  border: none;
+  font-family: 'frauncesblack';
+  font-size: 2.8rem;
+  font-variation-settings: 'wght' 700, 'SOFT' 50, 'WONK' 1, 'opsz' 9;
+  padding-bottom: 5px;
+  background-color: rgb(95, 125, 209);
+  color: rgb(250, 195, 42);
+}
+
+.form-div button:hover {
+  color: rgb(255, 145, 0);
+}
+
+.form-div button:active {
+  color: rgb(255, 72, 0);
+}
+
+/* ------------------- GAME DIV STYLES ------------ */
 
 .game-div {
   background-color: rgb(189, 234, 255);
