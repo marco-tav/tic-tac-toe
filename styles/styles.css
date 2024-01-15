@@ -69,11 +69,11 @@ body > div {
   padding: 20px;
   font-family: 'frauncesblack';
   font-size: 3.2rem;
-  font-variation-settings: 'wght' 400, 'WONK' 1, 'SOFT' 100, 'opsz' 80;
+  font-variation-settings: 'wght' 700, 'SOFT' 50, 'WONK' 1, 'opsz' 9;
 }
 
 .form-div > form {
-  background-color: rgb(109, 143, 235);
+  background-color: rgb(126, 159, 248);
   display: grid;
   grid-template-rows: repeat(2, 1fr);
   padding: 20px;
@@ -139,10 +139,10 @@ form input {
 /* ------------------- GAME DIV STYLES ------------ */
 
 .game-div {
-  background-color: rgb(189, 234, 255);
+  background-color: rgb(95, 125, 209);
   display: grid;
   grid-template-rows: 1fr 5fr;
-  padding: 80px 50px;
+  padding: 50px 100px 80px 100px; 
   position: relative;
 }
 
@@ -159,17 +159,44 @@ form input {
   margin: 0;
 }
 
+.grid-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.game-grid {
+  display: grid;
+  width: 90%;
+  height: 90%;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  border-radius: 20px;
+  gap:20px;
+}
+
+.cell {
+  border-radius: 20px;
+  background-color: rgb(126, 159, 248);
+  color: black;
+  text-align: center;
+  vertical-align: middle;
+  font-size: 9rem;
+  font-family: 'frauncesblack';
+  font-variation-settings: 'wght' 700, 'opsz' 144, 'SOFT' 80;
+}
+
 .author {
   position: absolute;
   width: 210px;
   height: 45px;
-  background-color: rgb(255, 145, 0);
+  background-color: rgb(250, 195, 42);
   border-radius: 25px;
   display: flex;
   justify-content: center;
   align-items: center;
-  bottom: 20px;
-  right: 20px;
+  bottom: 30px;
+  right: 30px;
 }
 
 .author p {
