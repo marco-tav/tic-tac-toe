@@ -140,4 +140,51 @@ form input {
 
 .game-div {
   background-color: rgb(189, 234, 255);
+  display: grid;
+  grid-template-rows: 1fr 5fr;
+  padding: 80px 50px;
+  position: relative;
+}
+
+.message-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.message-box > h2 {
+  font-size: 3rem;
+  font-family: 'frauncesblack';
+}
+
+.author {
+  position: absolute;
+  width: 210px;
+  height: 45px;
+  background-color: rgb(255, 145, 0);
+  border-radius: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  bottom: 20px;
+  right: 20px;
+}
+
+.author p {
+  color: black;
+  font-family: 'frauncesblack';
+  font-size: 1.3rem;
+  font-variation-settings: 'wght' 700, 'opsz' 50, 'SOFT' 50, 'WONK' 1;
+}
+
+.author a {
+  text-decoration: underline;
+  color: black;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.author img {
+  width: 22px;
 }
