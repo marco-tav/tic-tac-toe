@@ -150,7 +150,7 @@ const game = (function(player1Name = "Player 1", player2Name = "Player 2") {
   }
 
   function switchActivePlayer() {
-    activePlayer = activePlayer.getPlayerName() === "Player 1" ? activePlayer = playerArr[1] : activePlayer = playerArr[0];
+    activePlayer = activePlayer.getPlayerName() === playerArr[0].getPlayerName() ? playerArr[1] : playerArr[0];
   }
 
   function getCoordinates() {
