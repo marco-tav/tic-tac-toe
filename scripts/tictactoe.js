@@ -54,23 +54,18 @@ function makeGameBoard() {
 
 
 function makeCell() {
-  let value = "*";
+  let value = "";
   let markerPlaced = false;
 
   function changeValue(playerMarker) {
     value = playerMarker;
-    markerPlaced = true;
   }
 
   function getValue() {
     return value;
   }
 
-  function wasChanged() {
-    return markerPlaced;
-  }
-
-  return {changeValue, getValue, wasChanged};
+  return {changeValue, getValue};
 }
 
 
@@ -87,6 +82,24 @@ function makePlayer(name, marker) {
   }
 
   return {getPlayerName, getPlayerMarker}
+}
+
+function makeGrid() {
+  const gameGrid = document.createElement('div');
+  gameGrid.setAttribute('class', 'game-grid');
+  console.log(gameGrid);
+
+  for (let i=0; i < 3; i++) {
+    for (let j=0; j < 3; j++) {
+      const cell = document.createElement('div');
+      cell.setAttribute('class', 'cell');
+      cell.setAttribute('data-row', `${i}`);
+      cell.setAttribute('data-col', `${j}`);
+      gameGrid.appendChild(cell);
+    }
+  }
+
+  return gameGrid;
 }
 
 
@@ -177,7 +190,7 @@ const game = (function(player1Name = "Player 1", player2Name = "Player 2") {
     const [x, y] = getCoordinates();
 
     gameBoard.placeMarker(x, y, activePlayer.getPlayerMarker());
-    gameBoard.printBoard();
+    // gameBoard.printBoard(); No longer needed in DOM version
 
     if (status.getN() > 4) { // Here we check for a win
       let row = gameBoard.getRowString(x);
