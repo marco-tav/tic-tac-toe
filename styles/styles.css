@@ -18,6 +18,7 @@ body {
   height: 100vh;
   display: grid;
   grid-template-columns: 0.8fr 1fr 2fr;
+  grid-template-rows: 1fr;
   gap: 10px;
   background-color: rgb(54, 54, 54);
   padding: 10px;
@@ -26,13 +27,15 @@ body {
 body > div {
   padding: 50px;
   border-radius: 20px;
+  display: grid;
+  background-color: rgb(95, 125, 209);
+  grid-row: 1 / 2;
 }
 
 /* ------------------- TITLE DIV STYLES ------------ */
 
 .title-div {
   background-color: rgb(0, 25, 94);
-  display: grid;
   grid-template-rows: repeat(3, 1fr);
   align-items: center;
   justify-content: center;
@@ -59,8 +62,6 @@ body > div {
 /* ------------------- FORM DIV STYLES ---------------- */
 
 .form-div {
-  background-color: rgb(95, 125, 209);
-  display: grid;
   grid-template-rows: 1fr 1.5fr 1fr;
   padding: 30px;
 }
@@ -139,8 +140,6 @@ form input {
 /* ------------------- GAME DIV STYLES ------------ */
 
 .game-div {
-  background-color: rgb(95, 125, 209);
-  display: grid;
   grid-template-rows: 1fr 5fr;
   padding: 50px 100px 80px 100px; 
   position: relative;
