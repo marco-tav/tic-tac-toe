@@ -49,18 +49,7 @@ function makeGameBoard() {
     return [mainDiagonal, secondaryDiagonal];
   }
 
-  function printBoard() {
-    for(let i=0; i < 3; i++){
-      let row = `Row ${i}: `;
-      for(let j=0; j < 3; j++) {
-        row += " " + board[i][j].getValue();
-      }
-      console.log(row);
-    }
-    console.log(" ");
-  }
-
-  return {placeMarker, printBoard, getRowString, getColString, getDiagonalsArr}
+  return {placeMarker, getRowString, getColString, getDiagonalsArr}
 }
 
 
