@@ -140,8 +140,8 @@ const game = (function(player1Name = "Player 1", player2Name = "Player 2") {
     return {increaseN, getN, updateOngoing, getOngoing, updateTiedStatus, getTiedStatus, setWinner, getWinner}
   })();
 
-  const player1 = makePlayer(player1Name, "X");
-  const player2 = makePlayer(player2Name, "O");
+  const player1 = makePlayer(player1Name, "x");
+  const player2 = makePlayer(player2Name, "o");
 
   const playerArr = [player1, player2];
 
