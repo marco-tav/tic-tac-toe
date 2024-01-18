@@ -55,7 +55,6 @@ function makeGameBoard() {
 
 function makeCell() {
   let value = "";
-  let markerPlaced = false;
 
   function changeValue(playerMarker) {
     value = playerMarker;
@@ -95,6 +94,7 @@ function makeGrid() {
       cell.setAttribute('class', 'cell');
       cell.setAttribute('data-row', `${i}`);
       cell.setAttribute('data-col', `${j}`);
+      
       gameGrid.appendChild(cell);
     }
   }
