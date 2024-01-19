@@ -1,3 +1,4 @@
+// This functions creates the array that represents the board logically
 function makeGameBoard() {
   const board = [];
 
@@ -48,7 +49,7 @@ function makeGameBoard() {
   return {placeMarker, getRowString, getColString, getDiagonalsArr}
 }
 
-
+// This functions represents each cell on the board.
 function makeCell() {
   let value = "";
 
@@ -63,7 +64,7 @@ function makeCell() {
   return {changeValue, getValue};
 }
 
-
+// Functions that creates players
 function makePlayer(name, marker) {
   const playerName = name;
   const playerMarker = marker;
@@ -79,18 +80,19 @@ function makePlayer(name, marker) {
   return {getPlayerName, getPlayerMarker}
 }
 
+// This functions updates the grapgical board on the DOM when a click happens.
 function updateDOMBoard(cell, marker) {
   cell.innerText = marker;
 }
 
-
+// This functions removes a pre-existing grid when necessary.
 function removeOldGrid() {
   const oldGrid = document.querySelector('.game-grid');
 
   oldGrid.remove(); 
 }
 
-
+// Main function that controls the flow of the game.
 const game = (function(player1Name = "Player 1", player2Name = "Player 2") {
   if(document.querySelector('.game-grid')) {
     removeOldGrid();
@@ -98,6 +100,9 @@ const game = (function(player1Name = "Player 1", player2Name = "Player 2") {
   
   const gameBoard = makeGameBoard();
   const gridContainer = document.querySelector('.grid-container');
+  const messageBoard = document.querySelector('.message-box>h2');
+  let message;
+  let roundNumber = 1;
 
   const grid = (function(container) {
     const gameGrid = document.createElement('div');
@@ -117,47 +122,14 @@ const game = (function(player1Name = "Player 1", player2Name = "Player 2") {
     }
 
     container.appendChild(gameGrid);
-  
-    return gameGrid; // Unnecessary. Remove when possible.
   })(gridContainer);
-  
-  const status = (function() {
-    let n = 1; // round number
-    let gameOngoing = true;
-    let gameTied = false;
-    let winner;
-
-    const increaseN = () => n++;
-    const getN = () => n;
-
-    function updateOngoing() {
-      gameOngoing = false;
-    }
-
-    function getOngoing() {
-      return gameOngoing;
-    }
-
-    function updateTiedStatus() {
-      gameTied = true;
-    }
-
-    function getTiedStatus() {
-      return gameTied;
-    }
-
-    function setWinner(playerName) {
-      winner = playerName;
-    }
-
-    const getWinner = () => winner;
-
-    return {increaseN, getN, updateOngoing, getOngoing, updateTiedStatus, getTiedStatus, setWinner, getWinner}
-  })();
 
   const playerArr = [makePlayer(player1Name, "x"), makePlayer(player2Name, "o")];
 
   let activePlayer = selectRandomPlayer(playerArr);
+
+  message = `${activePlayer.getPlayerName()}'s turn`;
+  updateMessage(message, messageBoard);
 
   function getActivePlayer() {
     return activePlayer;
@@ -204,6 +176,10 @@ const game = (function(player1Name = "Player 1", player2Name = "Player 2") {
     })
   }
 
+  function updateMessage(message, messageBoard) {
+    messageBoard.innerText = message;
+  };
+
   function playRound(e) {
     const [x, y] = getCoordinates(e.target);
   
@@ -214,21 +190,35 @@ const game = (function(player1Name = "Player 1", player2Name = "Player 2") {
     const rowStr = gameBoard.getRowString(x);
     const colStr = gameBoard.getColString(y);
     const [mainDiag, secondaryDiag] = gameBoard.getDiagonalsArr();
-  
     const win = checkWin(rowStr, colStr, mainDiag, secondaryDiag, activePlayer.getPlayerMarker());
     
-    
-    if(win) {
-      removeListenersOnGameEnd();
+    // Here starts the logic that checks for game end conditions
+    if(roundNumber > 4) { // can't win before round 5 as no one placed 3 markers yet.      
+      if(win) {
+        removeListenersOnGameEnd();
+        
+        message = `${activePlayer.getPlayerName()} won!`;
+        updateMessage(message, messageBoard);
+
+      } else if (roundNumber === 9 && !win) {
+        message = "it's a tie!";
+        updateMessage(message, messageBoard);
+      }
     }
     
     switchActivePlayer();
+    roundNumber++;
+
+    if(!win && message !== "it's a tie!") {
+      message = `${activePlayer.getPlayerName()}'s turn`;
+      updateMessage(message, messageBoard);
+    } 
   }
 
   return {gameBoard, playerArr, getActivePlayer};
 });
 
-
+// Function that starts the game when start button is clicked
 const startGame = (function() {
   const startBtn = document.querySelector('button');
   const p1name = document.getElementById('p1name');
@@ -259,6 +249,7 @@ const startGame = (function() {
   return {getOldP1, getOldP2};
 })();
 
+// Function that restarts the game using the same player names when restart clicked
 const restartGame = (function() {
   const restartBtn = document.getElementById('restart');
   
