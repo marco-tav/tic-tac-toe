@@ -229,7 +229,14 @@ const game = (function(player1Name = "Player 1", player2Name = "Player 2") {
 });
 
 
+const startGame = (function() {
+  const startBtn = document.querySelector('button');
+  const p1name = document.getElementById('p1name');
+  const p2name = document.getElementById('p2name');
 
-const startBtn = document.querySelector('button');
+  startBtn.addEventListener('click', (e) => {
+    e.preventDefault();
 
-startBtn.addEventListener('click', game);
+    game(p1name.value, p2name.value);
+  });
+})();
