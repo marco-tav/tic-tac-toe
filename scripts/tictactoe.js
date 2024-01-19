@@ -118,7 +118,7 @@ const game = (function(player1Name = "Player 1", player2Name = "Player 2") {
 
     container.appendChild(gameGrid);
   
-    return gameGrid;
+    return gameGrid; // Unnecessary. Remove when possible.
   })(gridContainer);
   
   const status = (function() {
@@ -255,3 +255,13 @@ const startGame = (function() {
 
   return {getOldP1, getOldP2};
 })();
+
+const restartGame = (function() {
+  const restartBtn = document.getElementById('restart');
+  
+  restartBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+
+    game(startGame.getOldP1(), startGame.getOldP2());
+  })
+})(startGame.getOldP1(), startGame.getOldP2());
