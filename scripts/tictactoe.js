@@ -243,6 +243,9 @@ const startGame = (function() {
 
     oldNames.p1OldName = p1name.value;
     oldNames.p2OldName = p2name.value;
+
+    p1name.value = "";
+    p2name.value = "";
   });
 
   function getOldP1() {
