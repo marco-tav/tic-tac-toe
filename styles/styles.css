@@ -110,7 +110,7 @@ form input {
   display: flex;
   justify-content: flex-end;
   align-items: flex-end;
-  padding: 50px 0px;
+  padding: 0px 0px;
 }
 
 .form-div button {
