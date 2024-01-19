@@ -219,3 +219,29 @@ form input {
 .author img {
   width: 22px;
 }
+
+#restart {
+  position: absolute;
+  width: 210px;
+  height: 45px;
+  background-color: rgb(250, 195, 42, 0);
+  border: none;
+  border-radius: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  bottom: 30px;
+  left: 30px;
+  color: rgb(250, 195, 42);
+  font-family: 'frauncesblack';
+  font-size: 2.8rem;
+  font-variation-settings: 'wght' 700, 'SOFT' 50, 'WONK' 1, 'opsz' 9;
+}
+
+#restart:hover {
+  color: rgb(255, 145, 0);
+}
+
+#restart:active {
+  color: rgb(255, 72, 0);
+}
