@@ -4,7 +4,7 @@ A project about making a web-based tic-tac-toe game using the module pattern and
 
 ## Issues
 
-  - Input validations needs work to stop things like users sending equal names or sending empty strings.
+  - Input validations needs a bit more work but it's kinda ok.
 
   - Alignment needs work: the markers on the board aren't centered for some reason, for example.
 

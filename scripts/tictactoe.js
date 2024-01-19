@@ -229,6 +229,14 @@ const startGame = (function() {
   startBtn.addEventListener('click', (e) => {
     e.preventDefault();
 
+    if(!p1name.value) {
+      p1name.value = "player1";
+    }
+
+    if(!p2name.value) {
+      p2name.value = "player2";
+    }
+
     game(p1name.value, p2name.value);
 
     oldNames.p1OldName = p1name.value;
