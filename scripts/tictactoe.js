@@ -9,11 +9,7 @@ function makeGameBoard() {
   }
 
   function placeMarker(row, col, playerMarker) {
-    if(board[row][col].wasChanged()) {
-      console.log("You can't overwrite another player's marker");
-    } else {
-      board[row][col].changeValue(playerMarker);
-    }
+    board[row][col].changeValue(playerMarker);
   }
 
   function getRowString(row) {
@@ -83,28 +79,47 @@ function makePlayer(name, marker) {
   return {getPlayerName, getPlayerMarker}
 }
 
-function makeGrid() {
-  const gameGrid = document.createElement('div');
-  gameGrid.setAttribute('class', 'game-grid');
-  console.log(gameGrid);
+function updateDOMBoard(cell, marker) {
+  cell.innerText = marker;
+}
 
-  for (let i=0; i < 3; i++) {
-    for (let j=0; j < 3; j++) {
-      const cell = document.createElement('div');
-      cell.setAttribute('class', 'cell');
-      cell.setAttribute('data-row', `${i}`);
-      cell.setAttribute('data-col', `${j}`);
-      
-      gameGrid.appendChild(cell);
-    }
-  }
 
-  return gameGrid;
+function removeOldGrid() {
+  const oldGrid = document.querySelector('.game-grid');
+
+  oldGrid.remove(); 
 }
 
 
 const game = (function(player1Name = "Player 1", player2Name = "Player 2") {
+  if(document.querySelector('.game-grid')) {
+    removeOldGrid();
+  }
+  
   const gameBoard = makeGameBoard();
+  const gridContainer = document.querySelector('.grid-container');
+
+  const grid = (function(container) {
+    const gameGrid = document.createElement('div');
+    gameGrid.setAttribute('class', 'game-grid');
+  
+    for (let i=0; i < 3; i++) {
+      for (let j=0; j < 3; j++) {
+        const cell = document.createElement('div');
+        cell.setAttribute('class', 'cell');
+        cell.setAttribute('data-row', `${i}`);
+        cell.setAttribute('data-col', `${j}`);
+        
+        cell.addEventListener('click', playRound, {once: true});
+
+        gameGrid.appendChild(cell);
+      }
+    }
+
+    container.appendChild(gameGrid);
+  
+    return gameGrid;
+  })(gridContainer);
   
   const status = (function() {
     let n = 1; // round number
@@ -140,12 +155,15 @@ const game = (function(player1Name = "Player 1", player2Name = "Player 2") {
     return {increaseN, getN, updateOngoing, getOngoing, updateTiedStatus, getTiedStatus, setWinner, getWinner}
   })();
 
-  const player1 = makePlayer(player1Name, "x");
-  const player2 = makePlayer(player2Name, "o");
+  const playerArr = [makePlayer(player1Name, "x"), makePlayer(player2Name, "o")];
 
-  const playerArr = [player1, player2];
+  let activePlayer = selectRandomPlayer(playerArr);
 
-  function selectRandomPlayer(arr) {
+  function getActivePlayer() {
+    return activePlayer;
+  }
+
+  function selectRandomPlayer() {
     let random = Math.floor(Math.random()*2);
 
     return playerArr[random];
@@ -155,9 +173,9 @@ const game = (function(player1Name = "Player 1", player2Name = "Player 2") {
     activePlayer = activePlayer.getPlayerName() === playerArr[0].getPlayerName() ? playerArr[1] : playerArr[0];
   }
 
-  function getCoordinates() {
-    let row = prompt("Enter the row: ");
-    let col = prompt("Enter the column: ");
+  function getCoordinates(cell) {
+    let row = cell.getAttribute('data-row');
+    let col = cell.getAttribute('data-col');
   
     return [row, col]
   }
@@ -177,45 +195,41 @@ const game = (function(player1Name = "Player 1", player2Name = "Player 2") {
   
     return win;
   }
+  
+  function removeListenersOnGameEnd() {
+    let cells = document.querySelectorAll('.cell');
 
-  let activePlayer = selectRandomPlayer(playerArr);
-
-  const getActivePlayer = () => activePlayer;
-
-  console.log("GAME STARTS");
-
-  while(status.getOngoing() && status.getN()<10) {
-    console.log(`${activePlayer.getPlayerName()}'s turn`);
-
-    const [x, y] = getCoordinates();
-
-    gameBoard.placeMarker(x, y, activePlayer.getPlayerMarker());
-    // gameBoard.printBoard(); No longer needed in DOM version
-
-    if (status.getN() > 4) { // Here we check for a win
-      let row = gameBoard.getRowString(x);
-      let col = gameBoard.getColString(y);
-      let [mainDiag, secondaryDiag] = gameBoard.getDiagonalsArr();
-      let win = checkWin(row, col, mainDiag, secondaryDiag, activePlayer.getPlayerMarker());
-
-      if(win) {
-        status.updateOngoing();
-        status.setWinner(activePlayer.getPlayerName());
-      } else if (!win && status.getN() === 9) {
-        status.updateOngoing();
-        status.updateTiedStatus();
-      }
-    }
-
-    status.increaseN();
-    switchActivePlayer();
+    cells.forEach(cell => {
+      cell.removeEventListener('click', playRound);
+    })
   }
 
-  if(status.getTiedStatus()) {
-    console.log("It's a tie!");
-  } else {
-    console.log(`The winner is ${status.getWinner()}`);
+  function playRound(e) {
+    const [x, y] = getCoordinates(e.target);
+  
+    gameBoard.placeMarker(x, y, activePlayer.getPlayerMarker());
+  
+    updateDOMBoard(e.target, activePlayer.getPlayerMarker());
+  
+    const rowStr = gameBoard.getRowString(x);
+    const colStr = gameBoard.getColString(y);
+    const [mainDiag, secondaryDiag] = gameBoard.getDiagonalsArr();
+  
+    const win = checkWin(rowStr, colStr, mainDiag, secondaryDiag, activePlayer.getPlayerMarker());
+    
+    
+    if(win) {
+      removeListenersOnGameEnd();
+    }
+    
+    switchActivePlayer();
   }
 
   return {gameBoard, playerArr, getActivePlayer};
 });
+
+
+
+const startBtn = document.querySelector('button');
+
+startBtn.addEventListener('click', game);
