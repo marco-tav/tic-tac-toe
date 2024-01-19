@@ -234,9 +234,24 @@ const startGame = (function() {
   const p1name = document.getElementById('p1name');
   const p2name = document.getElementById('p2name');
 
+  const oldNames = {p1OldName: "", p2OldName: ""};  
+
   startBtn.addEventListener('click', (e) => {
     e.preventDefault();
 
     game(p1name.value, p2name.value);
+
+    oldNames.p1OldName = p1name.value;
+    oldNames.p2OldName = p2name.value;
   });
+
+  function getOldP1() {
+    return oldNames.p1OldName;
+  }
+
+  function getOldP2() {
+    return oldNames.p2OldName;
+  }
+
+  return {getOldP1, getOldP2};
 })();
