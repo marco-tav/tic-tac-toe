@@ -244,26 +244,16 @@ const startGame = (function() {
 
     p1name.value = "";
     p2name.value = "";
+
+    const restartGame = (function() {
+      const restartBtn = document.getElementById('restart');
+      
+      restartBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+    
+        game(oldNames.p1OldName, oldNames.p2OldName);
+      })
+    })();
   });
-
-  function getOldP1() {
-    return oldNames.p1OldName;
-  }
-
-  function getOldP2() {
-    return oldNames.p2OldName;
-  }
-
-  return {getOldP1, getOldP2};
-})();
-
-// Function that restarts the game using the same player names when restart clicked
-const restartGame = (function() {
-  const restartBtn = document.getElementById('restart');
   
-  restartBtn.addEventListener('click', (e) => {
-    e.preventDefault();
-
-    game(startGame.getOldP1(), startGame.getOldP2());
-  })
-})(startGame.getOldP1(), startGame.getOldP2());
+})();
