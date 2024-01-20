@@ -183,9 +183,6 @@ form input {
   font-size: 9rem;
   font-family: 'frauncesblack';
   font-variation-settings: 'wght' 700, 'opsz' 144, 'SOFT' 80;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 .author {
