@@ -214,8 +214,6 @@ const game = (function(player1Name = "Player 1", player2Name = "Player 2") {
       updateMessage(message, messageBoard);
     } 
   }
-
-  return {gameBoard, playerArr, getActivePlayer};
 });
 
 // Function that starts the game when start button is clicked
