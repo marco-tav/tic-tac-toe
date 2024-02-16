@@ -28,6 +28,25 @@ function removeOldGrid() {
   oldGrid.remove(); 
 }
 
+function checkWin(x, y, gameBoard, marker) {
+  let win = false;
+
+  const rowStr = gameBoard.getRowString(x);
+  const colStr = gameBoard.getColString(y);
+  const [mainDiag, secondaryDiag] = gameBoard.getDiagonalsArr();
+
+  let rowWin = rowStr === `${marker}${marker}${marker}`;
+  let colWin = colStr === `${marker}${marker}${marker}`;
+  let mainDiagWin = mainDiag === `${marker}${marker}${marker}`;
+  let secondaryDiagWin = secondaryDiag === `${marker}${marker}${marker}`;
+
+  if(rowWin || colWin || mainDiagWin || secondaryDiagWin) {
+    win = true;
+  }
+
+  return win;
+}
+
 // Main function that controls the flow of the game.
 const game = (function(player1Name = "Player 1", player2Name = "Player 2") {
   if(document.querySelector('.game-grid')) {
@@ -88,22 +107,6 @@ const game = (function(player1Name = "Player 1", player2Name = "Player 2") {
     return [row, col]
   }
 
-  function checkWin(rowStr, colStr, mainDiagStr, secDiagStr, marker) {
-    let win = false;
-
-  
-    let rowWin = rowStr === `${marker}${marker}${marker}`;
-    let colWin = colStr === `${marker}${marker}${marker}`;
-    let mainDiagWin = mainDiagStr === `${marker}${marker}${marker}`;
-    let secondaryDiagWin = secDiagStr === `${marker}${marker}${marker}`;
-  
-    if(rowWin || colWin || mainDiagWin || secondaryDiagWin) {
-      win = true;
-    }
-  
-    return win;
-  }
-  
   function removeListenersOnGameEnd() {
     let cells = document.querySelectorAll('.cell');
 
@@ -123,10 +126,7 @@ const game = (function(player1Name = "Player 1", player2Name = "Player 2") {
   
     updateDOMBoard(e.target, activePlayer.getPlayerMarker());
   
-    const rowStr = gameBoard.getRowString(x);
-    const colStr = gameBoard.getColString(y);
-    const [mainDiag, secondaryDiag] = gameBoard.getDiagonalsArr();
-    const win = checkWin(rowStr, colStr, mainDiag, secondaryDiag, activePlayer.getPlayerMarker());
+    const win = checkWin(x, y, gameBoard, activePlayer.getPlayerMarker());
     
     // Here starts the logic that checks for game end conditions
     if(roundNumber > 4) { // can't win before round 5 as no one placed 3 markers yet.      
