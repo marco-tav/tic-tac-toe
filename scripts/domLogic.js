@@ -1,14 +1,12 @@
-function updateDOMBoard(cell, marker) {
-  cell.innerText = marker;
-}
+import playRoundWrapper from "./playRound.js";
 
-function removeOldGrid() {
-  const oldGrid = document.querySelector('.game-grid');
+// grid()
+// removeOldGrid()
+// updateDOMBoard()
+// updateMessage()
+// removeListenersOnGameEnd()
 
-  oldGrid.remove(); 
-}
-
-function grid(container) {
+function grid(container, gameBoard, activePlayer, roundNumber, playerArr, message, messageBoard) {
   const gameGrid = document.createElement('div');
   gameGrid.setAttribute('class', 'game-grid');
 
@@ -18,6 +16,8 @@ function grid(container) {
       cell.setAttribute('class', 'cell');
       cell.setAttribute('data-row', `${i}`);
       cell.setAttribute('data-col', `${j}`);
+
+      const playRound = playRoundWrapper(gameBoard, activePlayer, roundNumber, playerArr, message, messageBoard);
       
       cell.addEventListener('click', playRound, {once: true});
 
@@ -28,4 +28,26 @@ function grid(container) {
   container.appendChild(gameGrid);
 }
 
-export {updateDOMBoard, removeOldGrid, grid};
+function updateDOMBoard(cell, marker) {
+  cell.innerText = marker;
+}
+
+function removeOldGrid() {
+  const oldGrid = document.querySelector('.game-grid');
+
+  oldGrid.remove(); 
+}
+
+function updateMessage(message, messageBoard) {
+  messageBoard.innerText = message;
+};
+
+function removeListenersOnGameEnd() {
+  let cells = document.querySelectorAll('.cell');
+
+  cells.forEach(cell => {
+    cell.removeEventListener('click', playRound);
+  })
+}
+
+export {updateDOMBoard, removeOldGrid, grid, updateMessage, removeListenersOnGameEnd};

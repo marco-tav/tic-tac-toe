@@ -1,3 +1,6 @@
+// makeGameBoard()
+// makeCell()
+
 function makeGameBoard() {
   const board = [];
 
